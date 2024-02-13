@@ -39,27 +39,14 @@ def main():
     rospy.init_node('image_capture_and_pan')
 
     package_name = "ow_lander"
-
-    # pan value
-    pan0 = 1.5
-    pan_args = [f"{pan0:.1f}"]
-    run_other_ros_nodes("pan.py", package_name, pan_args)
-    print("set pan", pan0)
-
-    # tilt value
-    tilt0 = 0.8
-    tilt_args = [f"{tilt0:.1f}"]
-    run_other_ros_nodes("tilt.py", package_name, tilt_args)
-    print("set tilt", tilt0)
-    rospy.sleep(1)
-
+    
     # save image to image directory
     script_name = "camera_capture.py"
     run_other_ros_nodes(script_name, package_name, [])
     print("camera_capture")
     rospy.sleep(2)
 
-    image_name = f"image_pan{pan_args}_tilt{tilt_args}.jpg"
+    image_name = f"image.jpg"
     # Step 3: Subscribe to the image topic and save the image
     image_sub = rospy.Subscriber('/StereoCamera/right/image_raw', Image, 
                                 image_callback, callback_args=image_name)
